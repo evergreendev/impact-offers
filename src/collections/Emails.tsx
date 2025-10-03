@@ -12,7 +12,7 @@ export const emails: CollectionConfig = {
   slug: 'emails',
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['email', 'offer', 'createdAt'],
+    defaultColumns: ['email', 'verified', 'createdAt'],
   },
   access: {
     read: emailAccess('read'),
@@ -26,12 +26,25 @@ export const emails: CollectionConfig = {
       name: 'email',
       type: 'email',
       required: true,
+      unique: true,
     },
     {
       name: 'verified',
       type: 'checkbox',
       defaultValue: false,
-    }
+    },
+    {
+      name: 'verificationToken',
+      type: 'text',
+      required: false,
+      admin: { position: 'sidebar', description: 'Auto-generated verification token' },
+    },
+    {
+      name: 'verificationSentAt',
+      type: 'date',
+      required: false,
+      admin: { position: 'sidebar' },
+    },
   ],
   timestamps: true,
 }

@@ -108,7 +108,7 @@ export default buildConfig({
       },
     },
   ],
-  collections: [Users, Media, Companies, Offers, Redemptions],
+  collections: [Users, Media, Companies, Offers, Redemptions, (await import('./collections/Emails')).emails],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -72,6 +72,7 @@ export interface Config {
     companies: Company;
     offers: Offer;
     redemptions: Redemption;
+    emails: Email;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     companies: CompaniesSelect<false> | CompaniesSelect<true>;
     offers: OffersSelect<false> | OffersSelect<true>;
     redemptions: RedemptionsSelect<false> | RedemptionsSelect<true>;
+    emails: EmailsSelect<false> | EmailsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -212,6 +214,22 @@ export interface Redemption {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emails".
+ */
+export interface Email {
+  id: number;
+  email: string;
+  verified?: boolean | null;
+  /**
+   * Auto-generated verification token
+   */
+  verificationToken?: string | null;
+  verificationSentAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -236,6 +254,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redemptions';
         value: number | Redemption;
+      } | null)
+    | ({
+        relationTo: 'emails';
+        value: number | Email;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -352,6 +374,18 @@ export interface OffersSelect<T extends boolean = true> {
 export interface RedemptionsSelect<T extends boolean = true> {
   offer?: T;
   email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emails_select".
+ */
+export interface EmailsSelect<T extends boolean = true> {
+  email?: T;
+  verified?: T;
+  verificationToken?: T;
+  verificationSentAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
