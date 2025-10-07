@@ -189,6 +189,10 @@ export interface Offer {
    * Human-friendly code customers will enter to redeem.
    */
   code: string;
+  /**
+   * Auto-generated from code and used in URLs.
+   */
+  slug: string;
   company: number | Company;
   description?: string | null;
   active?: boolean | null;
@@ -358,6 +362,7 @@ export interface CompaniesSelect<T extends boolean = true> {
  */
 export interface OffersSelect<T extends boolean = true> {
   code?: T;
+  slug?: T;
   company?: T;
   description?: T;
   active?: T;

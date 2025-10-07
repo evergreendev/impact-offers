@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { getPayload } from 'payload'
 import React from 'react'
+import { redirect } from 'next/navigation'
 
 import config from '@/payload.config'
 import './styles.css'
@@ -30,15 +31,16 @@ export default async function HomePage() {
     } catch {}
   }
 
+  if (isVerified) {
+    redirect('/offers')
+  }
+
   return (
     <div className="home">
       <div className="content">
         <h1>Impact Offers</h1>
         {!email && !isVerified && <EmailForm />}
         {email && !isVerified && <ResendVerificationButton email={email} />}
-        {isVerified && (
-          <p>Welcome back{email ? `, ${email}` : ''}! Your email is verified.</p>
-        )}
       </div>
     </div>
   )
