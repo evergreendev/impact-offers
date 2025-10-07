@@ -25,9 +25,9 @@ export default function RedeemButton({ slug, email }: { slug: string, email: str
 
       const totalForEmailAndOffer = j?.counts?.totalForEmailAndOffer
       setMessage(`Redeemed! Your email has used this offer ${totalForEmailAndOffer} time(s).`)
-    } catch (e:{ message: string}) {
+    } catch (e: unknown) {
       setStatus('error')
-      setMessage(e?.message || 'Something went wrong')
+      setMessage((e as {message: string})?.message || 'Something went wrong')
     }
   }
 
