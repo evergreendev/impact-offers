@@ -5,7 +5,7 @@ import config from '@/payload.config'
 import RedeemButton from '@/app/(frontend)/offers/RedeemButton'
 import ResendVerificationButton from '@/app/EmailForm/ResendVerificationButton'
 
-interface Params { code: string }
+type Params = Promise<{ code: string }>
 
 export const dynamic = 'force-dynamic'
 
