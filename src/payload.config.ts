@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
-import * as nodeMailer from "nodemailer";
+// @ts-expect-error nodemailer doesn't have types'
+import nodemailer from 'nodemailer'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -17,7 +18,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const transporter = nodeMailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT)||587,
   auth: {
