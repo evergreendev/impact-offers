@@ -24,8 +24,8 @@ const EmailForm = () => {
       setStatus('success')
       // Refresh to re-evaluate cookie / verified state
       window.location.reload()
-    } catch (e: any) {
-      setError(e?.message || 'Something went wrong')
+    } catch (e) {
+      setError((e as {message: string})?.message || 'Something went wrong')
       setStatus('error')
     }
   }
@@ -36,13 +36,14 @@ const EmailForm = () => {
         Enter your email to continue:
         <input
           type="email"
+          className="border border-gray-300 rounded-md px-3 py-2 w-full"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           required
         />
       </label>
-      <button type="submit" disabled={status==='loading'}>
+      <button className="rounded-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mt-2" type="submit" disabled={status==='loading'}>
         {status==='loading' ? 'Saving…' : 'Submit'}
       </button>
       {error && <p className="error" role="alert">{error}</p>}

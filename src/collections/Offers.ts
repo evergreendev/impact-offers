@@ -1,7 +1,7 @@
 import type { Access, CollectionConfig } from 'payload'
 
 // Utility: build a company-based access filter for collections with a direct `company` field
-const companyAccess = (action: 'read' | 'update' | 'delete'): Access => ({ req }) => {
+const companyAccess = (): Access => ({ req }) => {
   const user = req.user
   if (!user) return false
   if (user?.roles?.includes?.('superadmin')) return true
@@ -18,9 +18,9 @@ export const Offers: CollectionConfig = {
     defaultColumns: ['code', 'company', 'active', 'validFrom', 'validUntil', 'maxRedemptions'],
   },
   access: {
-    read: companyAccess('read'),
-    update: companyAccess('update'),
-    delete: companyAccess('delete'),
+    read: companyAccess(),
+    update: companyAccess(),
+    delete: companyAccess(),
     create: ({ req }) => {
       const user = req.user
       return Boolean(user && (user.roles?.includes?.('superadmin') || (user.companies && user.companies.length)))
@@ -180,7 +180,7 @@ export const Offers: CollectionConfig = {
       required: true,
       min: 1,
       admin: {
-        description: 'Total number of times this coupon can be redeemed across all users.',
+        description: 'Total number of times this coupon can be redeemed per user.',
       },
     },
   ],

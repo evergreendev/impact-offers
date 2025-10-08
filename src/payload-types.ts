@@ -199,7 +199,7 @@ export interface Offer {
   validFrom?: string | null;
   validUntil?: string | null;
   /**
-   * Total number of times this coupon can be redeemed across all users.
+   * Total number of times this coupon can be redeemed per user.
    */
   maxRedemptions: number;
   updatedAt: string;

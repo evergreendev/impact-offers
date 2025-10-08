@@ -52,6 +52,7 @@ export const POST = async (req: Request) => {
       await payload.update({
         collection: 'emails',
         id: emailDoc.id,
+        // @ts-expect-error payload types are wrong
         data: { verificationToken: token, verificationSentAt: now },
         overrideAccess: true,
       })
@@ -59,8 +60,13 @@ export const POST = async (req: Request) => {
       const { origin } = new URL(req.url)
       const verifyURL = `${origin}/api/email/verify?token=${encodeURIComponent(token)}`
 
-      // In a real app, integrate an email provider here.
       console.log(`[Email] Sending verification to ${normalizedEmail}: ${verifyURL}`)
+      await payload.sendEmail({
+        to: normalizedEmail,
+        subject: 'Verify your email address',
+        text: `Please verify your email address by clicking the link below:\n\n${verifyURL}`,
+        html: `<p>Please verify your email address by clicking the link below:</p><p><a href="${verifyURL}">${verifyURL}</a></p>`,
+      })
     }
 
     return Response.json({ success: true })

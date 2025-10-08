@@ -19,8 +19,8 @@ export default function ResendVerificationButton({ email }: { email: string }) {
         throw new Error(j?.error || 'Failed to send email')
       }
       setStatus('sent')
-    } catch (e: any) {
-      setError(e?.message || 'Something went wrong')
+    } catch (e) {
+      setError((e as {message: string})?.message || 'Something went wrong')
       setStatus('error')
     }
   }
@@ -28,7 +28,7 @@ export default function ResendVerificationButton({ email }: { email: string }) {
   return (
     <div className="email-verify">
       <p>We found your email {email}. It is not verified yet.</p>
-      <button onClick={send} disabled={status==='loading'}>
+      <button className="cursor-pointer rounded-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mt-2" onClick={send} disabled={status==='loading'}>
         {status==='loading' ? 'Sending…' : (status==='sent' ? 'Verification sent' : 'Send verification email')}
       </button>
       {error && <p className="error" role="alert">{error}</p>}
