@@ -45,7 +45,7 @@ export const GET = async (req: Request) => {
     })
 
     // Redirect to home after verification
-    const home = `${url.origin}/`
+    const home = `${process.env.BASE_URL}/`
     return Response.redirect(home, 302)
   } catch (e) {
     console.error(e)
