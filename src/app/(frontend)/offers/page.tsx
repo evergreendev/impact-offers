@@ -41,7 +41,7 @@ export default async function OffersPage() {
       <div className="content">
         <h1 className="text-center">Your Available Impact Offers</h1>
         {!offers.docs?.length && <p>No offers available right now. Please check back later.</p>}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-4">
           {offersWithRedemptions.map((offer) => {
             const isDisabled: boolean = !!(
               offer.maxRedemptions <= offer.redemptionCount ||
