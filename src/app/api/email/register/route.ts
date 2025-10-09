@@ -57,8 +57,7 @@ export const POST = async (req: Request) => {
         overrideAccess: true,
       })
 
-      const { origin } = new URL(req.url)
-      const verifyURL = `${origin}/api/email/verify?token=${encodeURIComponent(token)}`
+      const verifyURL = `${process.env.BASE_URL}/api/email/verify?token=${encodeURIComponent(token)}`
 
       console.log(`[Email] Sending verification to ${normalizedEmail}: ${verifyURL}`)
       await payload.sendEmail({
